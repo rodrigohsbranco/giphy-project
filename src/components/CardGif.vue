@@ -11,7 +11,7 @@
         >
           <v-img height="250px" :src="gif.url"></v-img>
           <v-card-actions>
-            <v-btn class="text-capitalize" color="pink accent-2" rounded dark @click="store({ id: gif.id, title: gif.title, url: gif.url, reveal:gif.reveal, import_datetime:gif.import_datetime })">
+            <v-btn class="text-capitalize" color="pink accent-2" rounded dark @click.once="store({ id: gif.id, title: gif.title, url: gif.url, reveal:gif.reveal, import_datetime:gif.import_datetime })">
               Salvar
             </v-btn>
             <v-btn
@@ -44,6 +44,7 @@
               </v-card-text>
               <v-card-actions class="pt-0">
                 <v-btn
+                  class="text-capitalize"
                   rounded
                   dark
                   text

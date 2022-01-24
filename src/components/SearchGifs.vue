@@ -54,7 +54,6 @@ export default {
         if (bottomOfWindow) {
           this.offset += 10;
           this.getGifs({searchGif:this.search, offset:this.offset})
-          console.log("SCROLL", this.offset);
         }
       }
     }

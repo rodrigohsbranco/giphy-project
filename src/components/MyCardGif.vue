@@ -53,6 +53,7 @@
               </v-card-text>
               <v-card-actions class="pt-0">
                 <v-btn
+                  class="text-capitalize"
                   rounded
                   dark
                   text
@@ -61,23 +62,31 @@
                 >
                   Fechar
                 </v-btn>
-                <!-- <v-btn
-                  rounded
-                  dark
-                  text
-                  color="pink accent-2"
-                >
-                  Editar
-                </v-btn> -->
                 <v-dialog persistent v-model="dialog" width="500">
                   <template v-slot:activator="{ on, attrs }">
-                    <v-btn color="pink accent-2" text rounded dark v-bind="attrs" v-on="on" @click="setDialog(gif.title, gif.url, gif.import_datetime, gif.id)">
+                    <v-btn
+                      class="text-capitalize"
+                      color="pink accent-2"
+                      text
+                      rounded
+                      dark
+                      v-bind="attrs"
+                      v-on="on"
+                      @click="
+                        setDialog(
+                          gif.title,
+                          gif.url,
+                          gif.import_datetime,
+                          gif.id
+                        )
+                      "
+                    >
                       Editar
                     </v-btn>
                   </template>
 
                   <v-card>
-                    <v-card-text  class="py-3 px-3">
+                    <v-card-text class="py-3 px-3">
                       <v-text-field v-model="name" label="Nome"></v-text-field>
                       <v-text-field v-model="url" label="URL"></v-text-field>
                       <v-text-field v-model="date" label="Data"></v-text-field>
@@ -87,10 +96,20 @@
 
                     <v-card-actions>
                       <v-spacer></v-spacer>
-                      <v-btn color="light-blue darken-3" text @click="updateDialog">
+                      <v-btn
+                        class="text-capitalize"
+                        color="light-blue darken-3"
+                        text
+                        @click="updateDialog"
+                      >
                         Salvar
                       </v-btn>
-                      <v-btn color="pink accent-2" text @click="dialog = false">
+                      <v-btn
+                        class="text-capitalize"
+                        color="pink accent-2"
+                        text
+                        @click="dialog = false"
+                      >
                         Fechar
                       </v-btn>
                     </v-card-actions>
@@ -109,35 +128,40 @@
 import { mapActions, mapState } from "vuex";
 
 export default {
-    data() {
-        return {
-            dialog: false,
-            name: '',
-            url: '',
-            date:'',
-            id: '',
-        }
-    },
+  data() {
+    return {
+      dialog: false,
+      name: "",
+      url: "",
+      date: "",
+      id: "",
+    };
+  },
   computed: {
     ...mapState({
-      myGifs: state => state.store.myGifs,
+      myGifs: (state) => state.store.myGifs,
     }),
   },
 
   methods: {
-    ...mapActions('store',["index", "destroy", "update"]),
+    ...mapActions("store", ["index", "destroy", "update"]),
 
     setDialog(title, url, date, id) {
-        this.name = title
-        this.url = url
-        this.date = date
-        this.id = id
+      this.name = title;
+      this.url = url;
+      this.date = date;
+      this.id = id;
     },
 
     updateDialog() {
-        this.update({id:this.id, url:this.url, title:this.name, import_datetime:this.date})
-        this.dialog = false
-    }
+      this.update({
+        id: this.id,
+        url: this.url,
+        title: this.name,
+        import_datetime: this.date,
+      });
+      this.dialog = false;
+    },
   },
 
   created() {

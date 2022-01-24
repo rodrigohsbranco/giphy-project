@@ -4,17 +4,15 @@ export default {
         const searchEndPoint = 'https://api.giphy.com/v1/gifs/search?'
         const limit = 12;
         const url = `${searchEndPoint}&api_key=${apiKey}&q=${searchGif}&limit=${limit}&offset=${offset}`
-        console.log('URL', url);
+
         await fetch(url)
           .then(res => res.json())
           .then(res => {
             const gifs = res.data
               .map(gif => {
                 const url = `https://media.giphy.com/media/${gif.id}/giphy.gif`
-  
                 gif.url = url;
                 gif.reveal = false;
-  
                 return gif
               })
             commit('UPDATE_GIFS', gifs)
@@ -29,16 +27,16 @@ export default {
       },
   
   
-      // SALVAR GIFS
+      // SALVAR GIFS: PARA SIMULAÇÃO DE SALVAR NO BACKEND FOI UTILIZADO O MÉTODO PARA SALVAR NA LOCAL STORAGE.
   
       index({ commit }) {
         const myGifs = JSON.parse(localStorage.getItem('mygifs'))
         commit('INDEX_GIF', myGifs)
-        console.log(myGifs);
       },
   
       store({ commit }, { id, title, url, reveal, import_datetime }) {
         const gif = { id, title, url, reveal, import_datetime }
+        
         commit('STORE_GIF', gif)
       },
   

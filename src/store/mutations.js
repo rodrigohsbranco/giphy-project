@@ -11,14 +11,8 @@ export default {
     localStorage.setItem('mygifs', JSON.stringify(state.myGifs))
   },
   DESTROY_GIF(state, payload) {
-    const index = state.myGifs.filter(gif => {
-       return gif.id === payload
-      // console.log('GIF ID', gif.id);
-      // console.log('ID', payload);
-    })
-    console.log('MYGIFS', state.myGifs);
-    console.log('INDEX', index);
-    state.myGifs.splice(index)
+    const index = state.myGifs.findIndex(gif => gif.id === payload)
+    state.myGifs.splice(index, 1)
     localStorage.setItem('mygifs', JSON.stringify(state.myGifs))
   },
   INDEX_GIF(state, payload) {
