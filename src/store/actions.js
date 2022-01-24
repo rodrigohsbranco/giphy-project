@@ -37,19 +37,16 @@ export default {
         console.log(myGifs);
       },
   
-      store({ commit, state }, { id, title, url, reveal, import_datetime }) {
+      store({ commit }, { id, title, url, reveal, import_datetime }) {
         const gif = { id, title, url, reveal, import_datetime }
         commit('STORE_GIF', gif)
-        localStorage.setItem('mygifs', JSON.stringify(state.myGifs))
       },
   
       destroy({ commit }, { id }) {
         commit('DESTROY_GIF', id)
-        localStorage.setItem('mygifs', JSON.stringify(this.myGifs))
       },
   
       update({ commit }, { id, title, url, import_datetime }) {
         commit('UPDATE_GIF', { id, title, url, import_datetime })
-        localStorage.setItem('mygifs', JSON.stringify(this.myGifs))
       }
 }

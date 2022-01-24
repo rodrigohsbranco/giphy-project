@@ -120,12 +120,12 @@ export default {
     },
   computed: {
     ...mapState({
-      myGifs: (state) => state.myGifs,
+      myGifs: state => state.store.myGifs,
     }),
   },
 
   methods: {
-    ...mapActions(["index", "destroy", "update"]),
+    ...mapActions('store',["index", "destroy", "update"]),
 
     setDialog(title, url, date, id) {
         this.name = title

@@ -3,8 +3,8 @@
     <v-row class="">
       <v-col class="d-flex flex-wrap">
         <v-card
-          v-for="gif in gifs"
-          :key="gif.id"
+          v-for="(gif, id) in gifs"
+          :key="gif+id"
           elevation="9"
           class="mt-3 mx-2"
           max-width="250"
@@ -67,12 +67,12 @@ import { mapActions, mapState } from "vuex";
 export default {
   computed: {
     ...mapState({
-      gifs: (state) => state.gifs,
+      gifs: state => state.store.gifs,
     }),
   },
 
   methods: {
-    ...mapActions(['store'])
+    ...mapActions('store',['store'])
   },
 
   filters: {

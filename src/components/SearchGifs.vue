@@ -34,7 +34,6 @@ export default {
   computed: {
     ...mapState({
       gifs: store => store.state.gifs,
-      // offset: state => state.offset
     }),
   },
   data() {
