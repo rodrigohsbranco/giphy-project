@@ -22,3 +22,6 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+Obs.: Para simular o envio para um backend foi feito através da manipulação da localStorage.
