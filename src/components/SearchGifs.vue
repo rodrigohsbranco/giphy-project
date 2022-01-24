@@ -3,89 +3,76 @@
     <v-row class="mx-5">
       <v-col cols="11" class="d-flex">
         <v-text-field
-          v-model="searchGif"
+          v-model="search"
           clearable
           solo
           placeholder="Escolha um Gif - Ex.: Mr Bean"
-          @keyup.enter="getGifs"
+          @keyup.enter="searchGif({searchGif: search})"
         ></v-text-field>
-        <v-btn @click="getGifs" height="49" large class="mx-2" dark color="pink">
+        <v-btn
+          @click="searchGif({searchGif: search})"
+          height="49"
+          large
+          class="mx-2"
+          dark
+          color="pink"
+        >
           <v-icon large dark> mdi-magnify </v-icon>
         </v-btn>
       </v-col>
     </v-row>
-
-    <v-row>
-      <v-col class="d-flex flex-wrap ml-7">
-        <v-card v-for="gif in gifs" :key="gif.id" elevation="9" class="mx-2 mt-3" max-width="250">
-          <v-img
-            height="250px"
-            :src="gif"
-          >
-          </v-img>
-          <v-card-actions>
-            <v-btn class="text-capitalize" color="pink accent-2" rounded dark>
-              Salvar
-            </v-btn>
-            <v-btn
-              class="text-capitalize"
-              color="light-blue darken-3"
-              rounded
-              dark
-            >
-              Detalhes
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-col>
-    </v-row>
+    <CardGif />
   </div>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions } from "vuex";
+import CardGif from "./CardGif.vue";
 
 export default {
+  components: { CardGif },
   computed: {
     ...mapState({
-      searchGif: state => state.searchGif,
-      gifs: state => state.gifs
-    })
+      gifs: store => store.state.gifs,
+      // offset: state => state.offset
+    }),
   },
   data() {
     return {
-      // searchGif: "",
-      // gifs: [],
+      search: "",
+      offset: 1,
     };
   },
 
   methods: {
+    ...mapActions('store',['getGifs', 'searchGif']),
 
-    ...mapActions(['getGifs']),
-
-  //   async getGifs() {
-  //     let apiKey = 'zexXkhBN79IOsvCWYACqwjyUtITGGqY4';
-  //     let searchEndPoint = 'https://api.giphy.com/v1/gifs/search?'
-  //     let limit = 1;
-  //     let url = `${searchEndPoint}&api_key=${apiKey}&q=${this.searchGif}&limit=${limit}`
-
-  //     await fetch(url)
-  //       .then(res => res.json())
-  //       .then(res => this.buildGifs(res))
-  //       .catch(err => console.log(err))
-  //   },
-
-  //   buildGifs(res) {
-  //     this.gifs = res.data
-  //     .map(gif => gif.id)
-  //     .map(gifId => `https://media.giphy.com/media/${gifId}/giphy.gif`)
-  //   }
+    handleInfintyScorll() {
+      window.onscroll = () => {
+        let bottomOfWindow =
+          document.documentElement.scrollTop + window.innerHeight ===
+          document.documentElement.offsetHeight;
+        if (bottomOfWindow) {
+          this.offset += 10;
+          this.getGifs({searchGif:this.search, offset:this.offset})
+          console.log("SCROLL", this.offset);
+        }
+      }
+    }
   },
 
   mounted() {
-    this.getGifs(this.searchGif);
-  }
+    this.handleInfintyScorll();
+    this.getGifs({searchGif:this.search});
+  },
 };
 </script>
 
-<style></style>
+<style scope>
+.v-card--reveal {
+  bottom: 0;
+  opacity: 1 !important;
+  position: absolute;
+  width: 100%;
+}
+</style>

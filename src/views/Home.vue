@@ -1,16 +1,16 @@
 <template>
   <div class="my-5">
     <SearchGifs />
-    <TrendingGifs />
+    <!-- <TrendingGifs /> -->
   </div>
 </template>
 
 <script>
 import SearchGifs from '../components/SearchGifs.vue';
-import TrendingGifs from '../components/TrendingGifs.vue';
+// import TrendingGifs from '../components/TrendingGifs.vue';
 export default {
   name: "Home",
 
-  components: { SearchGifs, TrendingGifs },
+  components: { SearchGifs },
 };
 </script>
